@@ -139,7 +139,7 @@ router.beforeEach(async (to, from, next) => {
 const globalVariable = {
     data(){
         return {
-            PORT: 'https://alumni-server-seven.vercel.app',
+            PORT: 'https://alumniserver-v3romq4n.b4a.run',
             isLogin: localStorage.getItem('token')!==null
         }
     }
