@@ -7,9 +7,9 @@
                 <h1 class="text-2xl font-bold">
                     Job Post
                 </h1>
-                <button type="submit" class="w-[10%] text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 absolute right-5" @click="show_form">Add Job</button>
+                <button type="submit" class="md:w-[10%] text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 self-end w-[25%] md:absolute right-5 md:mr-0 mr-10" @click="show_form">Add Job</button>
 
-                <div class="grid grid-cols-3 gap-2 p-10 mr-5">
+                <div class="grid md:grid-cols-3 gap-2 p-10 mr-5">
                     <div v-for="(job, index) in this.jobs" :key="index">
                         <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 py-5 shadow-lg flex flex-col items-start">
                             <div class="w-full mb-2 flex flex-col justify-center items-center">

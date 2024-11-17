@@ -3,11 +3,11 @@
         <Adminheader/>
         <div class="flex flex-col w-full">
             <Navbar/>
-            <div class="w-full mt-[5%] ml-[20.5%] text-white animate__animated animate__fadeIn pl-4">
+            <div class="w-full mt-14 md:mt-[5%] md:ml-[20.5%] text-white animate__animated animate__fadeIn pl-4">
                 <h1 class="text-3xl pb-4 tracking-tight text-gray-900 dark:text-white  font-bold">Course List</h1>
-                <div class="flex flex-row w-full gap-x-3">
-                    <div class="w-full  md:mt-0 sm:max-w-md xl:p-0 animate__animated animate__fadeIn">
-                        <div class="p-6 space-y-4 md:space-y-6 sm:p-8 rounded-lg bg-white shadow dark:border dark:bg-gray-800 dark:border-gray-700" id="add_form">
+                <div class="flex flex-col md:flex-row w-full gap-x-3 md:ml-0 ml-3">
+                    <div class="w-full md:mt-0 sm:max-w-md xl:p-0 animate__animated animate__fadeIn">
+                        <div class="w-[90%] md:w-full p-6 rounded-lg bg-white shadow self-center dark:border dark:bg-gray-800 dark:border-gray-700" id="add_form">
                             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                                Add Course
                             </h1>
@@ -23,7 +23,7 @@
                             </form>
                         </div>
                         <!-- update form -->
-                        <div class="hidden p-6 space-y-4 md:space-y-6 sm:p-8 rounded-lg bg-white shadow dark:border dark:bg-gray-800 dark:border-gray-700" id="update_form">
+                        <div class="hidden w-[90%] md:w-full p-6 space-y-4 md:space-y-6 sm:p-8 rounded-lg bg-white shadow dark:border dark:bg-gray-800 dark:border-gray-700" id="update_form">
                             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                                Edit Course
                             </h1>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col w-[40%] gap-y-2">
+                    <div class="flex flex-col w-[90%] md:w-[40%] gap-y-2 md:mt-0 mt-2">
                         <div class="bg-white dark:bg-gray-800 dark:border-gray-700 p-4 rounded-lg">
                             <div>
                                 <label for="search" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white capitalize">search</label>

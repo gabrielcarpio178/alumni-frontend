@@ -3,9 +3,9 @@
         <Adminheader/>
         <div class="flex flex-col w-full">
             <Navbar/>
-            <div class="w-[78%] mt-[5%] ml-[20.5%] text-white animate__animated animate__fadeIn pl-4 px-4">
+            <div class="mt-14 md:w-[78%] md:mt-[5%] md:ml-[20.5%] text-white animate__animated animate__fadeIn pl-4 px-4">
                 <h1 class="text-3xl pb-4 tracking-tight text-gray-900 dark:text-white  font-bold">Account Setting</h1>
-                <div class="flex flex-col items-center justify-center mx-auto lg:py-0 w-[100%] mt-10">
+                <div class="flex flex-col items-center justify-center mx-auto lg:py-0 w-[100%] md:mt-10 mt-5">
                     <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700  animate__animated animate__fadeIn">
                         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <form class="space-y-4 md:space-y-6" @submit="updateAccount">

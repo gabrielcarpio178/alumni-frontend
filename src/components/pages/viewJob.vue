@@ -1,14 +1,14 @@
 <template>
-    <div id="static-modal" class="flex flex-row overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full max-h-full">
-        <div class="m-10 max-w-sm w-1/2 relative">
+    <div class="flex flex-row overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full max-h-full">
+        <div class="m-10 max-w-sm w-3/4 md:w-1/2 relative">
             <div class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white absolute right-1 top-1" @click="callremovejob">
                 <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                 </svg>
                 <span class="sr-only">Close modal</span>
             </div>
-            <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 py-5 shadow-lg flex flex-col items-start text-white">
-                <div class="w-full mb-2 flex flex-col justify-center items-center">
+            <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 shadow-lg flex flex-col items-start text-white">
+                <div class="w-full mb-2 flex flex-col justify-center items-center mt-5">
                     <div class="relative mx-auto w-36 h-36 rounded-full">
                         <img class="rounded-full w-36 h-36 object-center" :src="job.profile_pic===null?getThumbnel(job.firstname, job.lastname):`${this.PORT}/uploads/${job.profile_pic}`" :alt="job.firstname+' '+job.lastname" />
                     </div>
@@ -35,7 +35,7 @@
                     <div>
                         Date Post: <span class="capitalize">{{moment(job.datepost)}}</span>
                     </div>
-                    <div class="flex flex-row gap-x-2 capitalize">
+                    <div class="w-full flex flex-row gap-x-2 capitalize">
                         <div>
                             Description:
                         </div>

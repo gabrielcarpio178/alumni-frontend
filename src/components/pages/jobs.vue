@@ -2,12 +2,12 @@
     <div class="bg-gray-50 dark:bg-gray-900 flex flex-col gap-10 w-full overflow-x-hidden">
         <Topbar/>
         <div class="h-screen xl:h-full p-3.5 text-white w-screen animate__animated animate__fadeIn flex flex-col">
-            <div class="text-center w-screen pt-20 flex flex-col gap-2">
+            <div class="text-center w-full pt-20 flex flex-col gap-2">
                 <h1 class="text-2xl font-bold">
                     Job Opportunity
                 </h1>
-                <router-link to="/jobs/view-job" type="submit" class="w-[10%] text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 absolute right-5">Your Post</router-link>
-                <div class="grid grid-cols-3 gap-2 p-10 mr-5">
+                <router-link to="/jobs/view-job" type="submit" class="w-[22%] md:w-[10%] text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 md:absolute right-5 self-end mr-2 md:mr-0">Your Post</router-link>
+                <div class="grid md:grid-cols-3 gap-2 p-10 mr-5">
                     <div v-for="(job, index) in this.jobs" :key="index">
                         <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 py-5 shadow-lg flex flex-col items-start">
                             <div class="w-full mb-2 flex flex-col justify-center items-center">

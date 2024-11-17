@@ -1,14 +1,14 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 flex flex-col gap-10 w-full overflow-x-hidden">
         <Topbar/>
-        <section class="bg-gray-50 dark:bg-gray-900 h-[100vh]  flex items-center justify-center">
-            <div class="w-full bg-white rounded-lg shadow dark:border mx-20 mt-20 dark:bg-gray-800 dark:border-gray-700">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8 animate__animated animate__fadeIn">
+        <section class="bg-gray-50 dark:bg-gray-900 md:mt-20 mt-24 flex w-screen items-center justify-center">
+            <div class="w-full bg-white rounded-lg shadow dark:border mx-20 dark:bg-gray-800 dark:border-gray-700">
+                <div class="md:p-6 p-2 space-y-2 md:space-y-6 animate__animated animate__fadeIn">
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Sign up
                     </h1>
                     <form class="flex flex-col gap-3" @submit="registerRequest">
-                        <div class="grid grid-cols-3 gap-5">
+                        <div class="grid md:grid-cols-3 gap-5">
                             <div>
                                 <label for="firstname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white capitalize">firstname</label>
                                 <input type="text" name="firstname" v-model="firstname" id="firstname" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Firstname" required>
@@ -71,7 +71,7 @@
                             <div class="text-red-600 py-0 px-0 capitalize" id="message">
                                 
                             </div>
-                            <button type="submit" class="w-1/4 text-white    bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign up</button>
+                            <button type="submit" class="w-full md:w-1/4 text-white    bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign up</button>
                             <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                                 I have an account <router-link to="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign in</router-link>
                             </p>
