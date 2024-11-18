@@ -17,8 +17,9 @@ import account_setting from './components/pages/admin_accountSetting.vue'
 import profile from './components/pages/profile_edit.vue'
 import jobs from './components/pages/jobs.vue'
 import view_job from './components/pages/view_job.vue'
-
-
+import admin_job from './components/pages/admin_job.vue'
+import system_setting from './components/pages/admin_systemSetting.vue'
+import about from './components/pages/about.vue'
 
 const router = createRouter({
     routes: [
@@ -114,12 +115,33 @@ const router = createRouter({
                 requiresAuth: true,
             }
         },
+        {
+            path: "/admin-jobs", 
+            name: "admin-jobs",
+            component: admin_job,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+        {
+            path: "/system-setting", 
+            name: "system-setting",
+            component: system_setting,
+            meta: {
+                requiresAuth: true,
+            }
+        },
+        {
+            path: "/about", 
+            name: "about",
+            component: about
+        },
     ],
     history: createWebHistory()
 })
 
 router.beforeEach(async (to, from, next) => {
-    const admin_page = ['admin-home', 'course-list', 'alumni-list', 'alumni-gallery', 'event', 'account-setting'];
+    const admin_page = ['admin-home', 'course-list', 'alumni-list', 'alumni-gallery', 'event', 'account-setting','admin-jobs','system-setting'];
     
     if(localStorage.getItem('role')==='admin'&&admin_page.includes(to.name)){
         to.meta.requiresAuth = false;
@@ -139,7 +161,7 @@ router.beforeEach(async (to, from, next) => {
 const globalVariable = {
     data(){
         return {
-            PORT: 'https://alumnibacked-06qbzqq0.b4a.run',
+            PORT: 'http://localhost:8080',
             isLogin: localStorage.getItem('token')!==null
         }
     }

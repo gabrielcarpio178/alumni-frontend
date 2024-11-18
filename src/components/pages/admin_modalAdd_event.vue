@@ -89,6 +89,7 @@ export default  {
             e.preventDefault();
             const token = localStorage.getItem('token');
             const formData = new FormData();
+            this.$emit('loader')
             formData.append('event', this.event);
             formData.append('schedule', this.schedule);
             formData.append('description', this.description);
@@ -103,6 +104,7 @@ export default  {
                 }
             })
             if(res.data.message==='post success'){
+                this.$emit('loader')
                 Swal.fire({
                     position: "center",
                     title: `success`,

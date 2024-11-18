@@ -1,6 +1,7 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 w-screen overflow-x-hidden flex flex-row">
         <Adminheader/>
+        <Loader v-bind:isLoader='isLoader'/>
         <div class="flex flex-col w-full">
             <Navbar/>
             <div class="mt-14 md:w-[78%] md:mt-[5%] md:ml-[20.5%] text-white animate__animated animate__fadeIn pl-4 px-4">
@@ -38,23 +39,33 @@ import axios from 'axios'
 import Adminheader from './../layout/admin_header.vue'
 import Navbar from './../layout/admin_navbar.vue'
 import Swal from 'sweetalert2'
+import Loader from '../layout/loader.vue'
 
 
 export default {
     components: {
         Adminheader,
         Navbar,
+        Loader
     },
     data(){
         return{
             admin: {},
-            message: ''
+            message: '',
+            isLoader : 'loader-hide'
         }
     },
     mounted(){
         this.getAdminData();
     },
     methods: {
+        nowLoading(){
+            if(this.isLoader==='loader-hide'){
+                this.isLoader = 'loader-display';
+            }else{
+                this.isLoader = 'loader-hide'
+            }
+        },
         async getAdminData(){
             const token = localStorage.getItem('token');
             const res = await axios.get(`${this.PORT}/auth/admin/account`, {
@@ -71,33 +82,42 @@ export default {
             const email = document.getElementById('email').value;
             const password = this.password;
             const con_password = this.con_password;
+            this.nowLoading();
             if(password===con_password){
                 this.message = ''
-                const res = await axios.put(`${this.PORT}/auth/admin/account`,
-                {
-                    id: this.id,
-                    email: email,
-                    password: password
-                },
-                {
-                    headers:{
-                        'Content-type':'application/x-www-form-urlencoded',
-                        "authorization" : `bearer ${token}`,
-                    }
-                });
-                if(res.data.message === 'update success'){
-                    Swal.fire({
-                        position: "center",
-                        title: `Success`,
-                        text: `Save success`,
-                        showConfirmButton: false,
-                        timer: 1000,
-                        icon: "success"
-                    }).then(()=>{
-                        window.location = '/account-setting';
+                try {
+                    const res = await axios.put(`${this.PORT}/auth/admin/account`,
+                    {
+                        id: this.id,
+                        email: email,
+                        password: password
+                    },
+                    {
+                        headers:{
+                            'Content-type':'application/x-www-form-urlencoded',
+                            "authorization" : `bearer ${token}`,
+                        }
                     });
-                }
+                    if(res.data.message === 'update success'){
+                        Swal.fire({
+                            position: "center",
+                            title: `Success`,
+                            text: `Save success`,
+                            showConfirmButton: false,
+                            timer: 1000,
+                            icon: "success"
+                        }).then(()=>{
+                            window.location = '/account-setting';
+                        });
+                    }
+                    } catch (error) {
+                        console.log(error)
+                    }finally{
+                        this.nowLoading();
+                    }
+                
             }else{
+                this.nowLoading();
                 this.message = 'Password not Match'
             }
             

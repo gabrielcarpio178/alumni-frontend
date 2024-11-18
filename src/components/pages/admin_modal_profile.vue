@@ -61,7 +61,6 @@ export default  {
             return `https://ui-avatars.com/api/?name=${firstname}+${lastname}`
         },
         async updateStatus(status, id){
-
             Swal.fire({
                 title: "Are you sure?",
                 text: `You want to ${status!=0?'Activate':'Deactivate'}`,
@@ -72,32 +71,40 @@ export default  {
                 confirmButtonText: `Yes, ${status!=0?'Activate':'Deactivate'} it!`
                 }).then(async (result) => {
                 if (result.isConfirmed) {
-
+                    this.$emit('loader');
                     const token = localStorage.getItem('token');
                     const updateData = {
                         id: id,
                         status: status
                     }
-
-                    await axios.put(`${this.PORT}/auth/admin/user_statsUpdate`,
-                        updateData,
-                        {
-                            headers:{
-                                'Content-type':'application/x-www-form-urlencoded',
-                                "authorization" : `bearer ${token}`,
+                    try {
+                        const res = await axios.put(`${this.PORT}/auth/admin/user_statsUpdate`,
+                            updateData,
+                            {
+                                headers:{
+                                    'Content-type':'application/x-www-form-urlencoded',
+                                    "authorization" : `bearer ${token}`,
+                                }
                             }
+                        );
+                        if(res.data.message==='update success'){
+                            this.$emit('loader');
+                            Swal.fire({
+                                position: "center",
+                                title: `${status!=0?'Activate':'Deactivate'}`,
+                                text: `Your account has been ${status!=0?'Activate':'Deactivate'}`,
+                                showConfirmButton: false,
+                                timer: 1500,
+                                icon: "success"
+                            }).then(()=>{
+                                window.location = '/alumni-list';
+                            });
                         }
-                    );
-                    Swal.fire({
-                        position: "center",
-                        title: `${status!=0?'Activate':'Deactivate'}`,
-                        text: `Your account has been ${status!=0?'Activate':'Deactivate'}`,
-                        showConfirmButton: false,
-                        timer: 1000,
-                        icon: "success"
-                    }).then(()=>{
-                        window.location = '/alumni-list';
-                    });
+                        
+                    } catch (error) {
+                        console.log(error)
+                    }
+                    
                 }
             });
             

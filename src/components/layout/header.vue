@@ -4,7 +4,7 @@
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <router-link to="/" class="flex items-center">
                     <img src="../image/itechlogo.png" class="mr-3 h-6 sm:h-9" alt="Itech logo" />
-                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Alumni Management System</span>
+                    <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white capitalize">{{this.system_data.system_title}}</span>
                 </router-link>
                 <div class="flex items-center lg:order-2">
                     <div v-if="this.isLogin" class="w-20 h-14 text-gray-800 dark:text-white focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 cursor-pointer focus:outline-none dark:focus:ring-gray-800" @click="displayProfle">
@@ -25,7 +25,7 @@
                             <router-link to="/gallery" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Gallery</router-link>
                         </li>
                         <li class="p-1 rounded-md" :class="isActivate('about')?'bg-gray-700':'hover:bg-gray-100 dark:hover:bg-gray-700'">
-                            <a href="#" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About</a>
+                            <router-link to="/about" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About</router-link>
                         </li>
                         <li class="p-1 rounded-md" :class="isActivate('jobs')?'bg-gray-700':'hover:bg-gray-100 dark:hover:bg-gray-700'">
                             <router-link to="/jobs" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Job</router-link>
@@ -39,8 +39,10 @@
 </template>
 
 <script>
-    import {useRoute} from 'vue-router'
-    import Profile from './profile.vue'
+import axios from 'axios'
+import {useRoute} from 'vue-router'
+import Profile from './profile.vue'
+    
     export default{
         components: { 
             Profile 
@@ -49,8 +51,12 @@
             return {
                 student: JSON.parse(localStorage.getItem('student')),
                 isShow: false,
-                novi_show: false
+                novi_show: false,
+                system_data : {},
             }
+        },
+        mounted(){
+            this.getData()
         },
         methods: {
             show_novi_content(){
@@ -68,6 +74,15 @@
             },
             displayProfle(){
                 this.isShow = true;
+            },
+            async getData(){
+                try {
+                    const res = await axios.get(`${this.PORT}/auth/admin/system_setting`)
+                    this.system_data = res.data.row
+                } catch (error) {
+                    console.log(error)
+                }
+                
             },
             removeProfle(){
                 this.isShow = false;

@@ -5,7 +5,7 @@
             <Navbar/>
             <div class="w-full mt-14 md:mt-[5%] md:ml-[20.5%] text-white animate__animated animate__fadeIn pl-4">
                 <h1 class="text-3xl pb-4 tracking-tight text-gray-900 dark:text-white  font-bold">Dashboard</h1>
-                <div class="flex flex-col md:flex-row w-full">
+                <div class="flex flex-col md:flex-row gap-x-4 md:w-[76%]">
                     <div class="flex flex-col md:w-1/2 gap-y-2 w-full">
                         <div class="flex flex-row max-w-[94%] md:max-w-sm p-2 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <div class="flex flex-col w-1/2 items-center">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-1 flex items-center md:w-full md:mt-0 mt-3 w-[94%]">
+                    <div class="bg-white border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-1 flex items-center md:w-3/4 md:mt-0 mt-3 w-[94%]">
                         <canvas id="myChart"></canvas>
                     </div>
                 </div>
@@ -51,9 +51,9 @@
 </template>
 
 <style scoped>
-    canvas{
+    #myChart{
         width: 100% !important;
-        height: 75vh !important;
+        height: 70vh !important;
     }
 </style>
 

@@ -1,6 +1,7 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 w-screen overflow-x-hidden flex flex-row">
         <Adminheader/>
+        <Loader v-bind:isLoader='isLoader'/>
         <div class="flex flex-col w-full">
             <Navbar/>
             <div class="w-full mt-14 md:mt-[5%] md:ml-[20.5%] text-white animate__animated animate__fadeIn pl-4">
@@ -87,20 +88,23 @@
 <script>
 import Adminheader from './../layout/admin_header.vue'
 import Navbar from './../layout/admin_navbar.vue'
+import Loader from '../layout/loader.vue'
 import axios from 'axios';
 import Swal from 'sweetalert2'
 
 export default {
     components: {
         Adminheader,
-        Navbar
+        Navbar,
+        Loader
     },
     data(){
         return {
             datas: [],
             message: "",
             not_found: "",
-            update_data: {}
+            update_data: {},
+            isLoader : 'loader-hide',
         }
     },
     mounted(){
@@ -108,29 +112,53 @@ export default {
         // this.getUpdateData(this.update_data);
     },
     methods: {
+        nowLoading(){
+            if(this.isLoader==='loader-hide'){
+                this.isLoader = 'loader-display';
+            }else{
+                this.isLoader = 'loader-hide'
+            }
+        },
         async addSubmit(e){
             e.preventDefault();
             const token = localStorage.getItem('token');
             const course = this.course;
-            
-            const res = await axios.post(`${this.PORT}/auth/admin/addCourse`,
-                {
-                    course: course.toUpperCase(),
-                },
-                {
-                    headers:{
-                        'Content-type':'application/x-www-form-urlencoded',
-                        "authorization" : `bearer ${token}`,
+            this.nowLoading();
+            try {
+                const res = await axios.post(`${this.PORT}/auth/admin/addCourse`,
+                    {
+                        course: course.toUpperCase(),
+                    },
+                    {
+                        headers:{
+                            'Content-type':'application/x-www-form-urlencoded',
+                            "authorization" : `bearer ${token}`,
+                        }
                     }
-                }
-            );
-            if(res.data.message!=='add success'){
-                this.message = res.data.message;
-            }else{
-                this.message = ""
-                this.course = ""
-                this.displayCourse('all');
+                );
+                Swal.fire({
+                    position: "center",
+                    title: `Success`,
+                    text: `Add Success.`,
+                    showConfirmButton: false,
+                    timer: 1000,
+                    icon: "success"
+                }).then(()=>{
+                    if(res.data.message!=='add success'){
+                        this.message = res.data.message;
+                    }else{
+                        this.message = ""
+                        this.course = ""
+                        this.displayCourse('all');
+                    }
+                })
+                
+            } catch (error) {
+                console.log(error)
+            }finally{
+                this.nowLoading();
             }
+                
         },
 
         searchcourse(search){
@@ -168,18 +196,38 @@ export default {
                 confirmButtonText: "Yes, delete it!"
             }).then(async (result) => {
             if (result.isConfirmed) { 
-                await axios.delete(`${this.PORT}/auth/admin/deleteCourse`,
-                    {
-                        headers:{
-                            'Content-type':'application/x-www-form-urlencoded',
-                            "authorization" : `bearer ${token}`,
-                        },
-                        data: {
-                            id: id
+                this.nowLoading()
+                try{
+                    const res = await axios.delete(`${this.PORT}/auth/admin/deleteCourse`,
+                        {
+                            headers:{
+                                'Content-type':'application/x-www-form-urlencoded',
+                                "authorization" : `bearer ${token}`,
+                            },
+                            data: {
+                                id: id
+                            }
                         }
-                    }
-                )
-                this.displayCourse('all');
+                    )
+                    if(res.data.message=='delete success'){
+                        Swal.fire({
+                            position: "center",
+                            title: `Success`,
+                            text: `Delete Success`,
+                            showConfirmButton: false,
+                            timer: 1000,
+                            icon: "success"
+                        }).then(()=>{
+                            
+                            this.displayCourse('all');
+                        })
+                        
+                    }  
+                }catch(error){
+                    console.log(error)
+                }finally{
+                    this.nowLoading();
+                }
             }
             });
         },

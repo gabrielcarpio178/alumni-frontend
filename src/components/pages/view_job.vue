@@ -2,13 +2,15 @@
     <div class="bg-gray-50 dark:bg-gray-900 flex flex-col gap-10 w-full overflow-x-hidden">
         <Topbar/>
         <Loader v-bind:isLoader='isLoader'/>
-        <div class="h-screen xl:h-full p-3.5 text-white w-screen animate__animated animate__fadeIn flex flex-col">
+        <div class="h-screen xl:h-full text-white w-screen animate__animated animate__fadeIn flex flex-col">
             <div class="text-center w-screen pt-20 flex flex-col gap-2">
                 <h1 class="text-2xl font-bold">
                     Job Post
                 </h1>
                 <button type="submit" class="md:w-[10%] text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 self-end w-[25%] md:absolute right-5 md:mr-0 mr-10" @click="show_form">Add Job</button>
-
+                <div v-if="this.isNoPost" class="text-red-600 w-full h-[100vh]">
+                    No Post Available
+                </div>
                 <div class="grid md:grid-cols-3 gap-2 p-10 mr-5">
                     <div v-for="(job, index) in this.jobs" :key="index">
                         <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 py-5 shadow-lg flex flex-col items-start">
@@ -40,6 +42,7 @@
                 </div>
 
             </div>
+            <Bottombar/> 
         </div>
         <PostJobs v-if="isShow_form" class="animate__animated animate__bounceInDown" @callremove="removeProfle" @loading="nowLoading" @getNewData="getdata"/> 
         <EditJobs v-if="isShowEdit_form" class="animate__animated animate__bounceInDown" @callremove_edit="callremove_edit" v-bind:job='job' @loading="nowLoading" @getNewData="getdata"/> 
@@ -55,6 +58,7 @@ import EditJobs from './edit_jobs.vue'
 import Loader from '../layout/loader.vue'
 import ViewJobs from './viewJob.vue'
 import moment from 'moment';
+import Bottombar from '../layout/footer.vue'
 
 export default{
     components: {
@@ -62,7 +66,8 @@ export default{
         PostJobs,   
         Loader,
         ViewJobs,
-        EditJobs
+        EditJobs,
+        Bottombar
     },
     data(){
         return{
@@ -71,7 +76,8 @@ export default{
             isShow_Jobs: false,
             isLoader : 'loader-hide',
             isShowEdit_form: false,
-            job: {}
+            job: {},
+            isNoPost: false
         }
     },
     mounted(){
@@ -94,6 +100,7 @@ export default{
                         "authorization" : `bearer ${token}`,
                     }
                 })
+                this.isNoPost = res.data.rows.length===0
                 this.jobs = res.data.rows
                 // console.log(res.data.rows);
             } catch (error) {
@@ -117,6 +124,7 @@ export default{
         viewJob(index){
             this.job = this.jobs[index];
             this.job.isViewJob = true;
+            this.job.admin = false;
             this.isShow_Jobs = true;
         },
         removejobs(){

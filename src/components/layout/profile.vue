@@ -67,7 +67,7 @@
                 localStorage.removeItem('isLogin');
                 localStorage.removeItem('student');
                 window.location = "/login";
-            },
+            }
         }
     }
 </script>

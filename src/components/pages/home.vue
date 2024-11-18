@@ -1,7 +1,9 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 flex flex-col gap-10 w-full overflow-x-hidden">
         <Topbar/>
-        <div class="mt-20 md:mt-0 h-screen xl:h-full text-white w-screen animate__animated animate__fadeIn">
+        <Participants v-if="this.isParticipant" v-bind:participants="participants" v-bind:event_id="event_id" class="animate__animated animate__bounceInDown" @remove="remove" @loading="nowLoading"/>
+        <Loader v-bind:isLoader='isLoader'/>
+        <div class="h-screen xl:h-full text-white w-screen animate__animated animate__fadeIn">
             <div class="text-center w-screen pt-20 flex flex-col gap-2">
                 <h1 class="text-3xl font-bold">
                     Welcome Alumni
@@ -12,6 +14,9 @@
             </div>
             <div class="mt-10 text-center text-xl">
                 Upcoming Events
+            </div>
+            <div v-if="this.isNoPost" class="text-red-600 w-full h-[40vh]">
+                No Events Post
             </div>
             <div class="flex flex-col w-screen md:px-20 mt-10 gap-y-5 px-10">
                 <div v-for="(data, index) in this.datas" :key="index" class="w-full flex flex-col md:flex-row p-3 bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -33,46 +38,63 @@
                             {{data.description}}
                         </div>
                         <div class="w-full md:mt-5 mt-3">
-                            <button class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" @click="this.viewevent()">View More</button>
+                            <button class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" @click="this.viewevent(data.id)">View Participants</button>
                         </div>
                         
                     </div>
                 </div>
             </div>
+            <Bottombar/>
         </div>
-        <!-- <Bottombar/> -->
     </div>    
 </template>
 
 <script>
     import Topbar from '../layout/header.vue'
     import Bottombar from '../layout/footer.vue'
+    import Participants from './participants.vue'
     import axios from 'axios'
     import moment from 'moment'
     import Swal from 'sweetalert2'
+    import Loader from '../layout/loader.vue'
     export default {
         name: 'home',
         components: {
             Topbar,
-            Bottombar
+            Bottombar,
+            Participants,
+            Loader
         },
         data(){
             return {
                 datas: [],
+                isNoPost: false,
+                isParticipant: false,
+                participants: [],
+                isLoader : 'loader-hide'
             }
         },
         mounted(){
             this.getdata();
         },
         methods: {
+            nowLoading(){
+                this.getdata();
+                if(this.isLoader==='loader-hide'){
+                    this.isLoader = 'loader-display';
+                }else{
+                    this.isLoader = 'loader-hide'
+                }
+            },
             moment(date) {
                 return moment(date).format('MMMM D, YYYY - h:mm a');
             },
             async getdata(){
                 var datas_rows = await axios.get(`${this.PORT}/auth/events`);
+                this.isNoPost = datas_rows.data.rows.length===0
                 this.datas = datas_rows.data.rows;
             },
-            viewevent(){
+            async viewevent(id){
                 if(!this.isLogin){
                     Swal.fire({
                         position: "center",
@@ -85,7 +107,27 @@
                             window.location = '/login'
                         }
                     });
+                }else{
+                    this.isParticipant = true
+                    const token = localStorage.getItem('token');
+                    try {
+                        var res = await axios.get(`${this.PORT}/auth/participants/${id}`, {
+                            headers:{
+                                'Content-type':'application/x-www-form-urlencoded',
+                                "authorization" : `bearer ${token}`,
+                            }
+                        })
+                        this.participants = res.data.rows
+                        this.event_id = id;
+                    } catch (error) {
+                        console.log(error);
+                    }
+                    
+                    
                 }
+            },
+            remove(){
+                this.isParticipant = !this.isParticipant
             }
             
         }

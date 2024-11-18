@@ -1,11 +1,15 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 flex flex-col gap-10 w-full overflow-x-hidden">
         <Topbar/>
-        <div class="h-screen xl:h-full p-3.5 text-white w-screen animate__animated animate__fadeIn flex flex-col">
+        <div class="h-screen xl:h-full text-white w-full animate__animated animate__fadeIn flex flex-col">
+            
             <div class="text-center w-full pt-20 flex flex-col gap-2">
                 <h1 class="text-2xl font-bold">
                     Job Opportunity
                 </h1>
+                <div v-if="this.isNoPost" class="text-red-600 w-full h-[40vh]">
+                    No Job Post Available
+                </div>
                 <router-link to="/jobs/view-job" type="submit" class="w-[22%] md:w-[10%] text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 md:absolute right-5 self-end mr-2 md:mr-0">Your Post</router-link>
                 <div class="grid md:grid-cols-3 gap-2 p-10 mr-5">
                     <div v-for="(job, index) in this.jobs" :key="index">
@@ -37,6 +41,7 @@
                     </div>
                 </div>
             </div> 
+            <Bottombar/> 
         </div>
         <ViewJobs v-if="isShow_Jobs" class="animate__animated animate__bounceInDown" v-bind:job='job' @callremovejob="removejobs"/> 
     </div>     
@@ -61,7 +66,8 @@
                 isShow_Jobs: false,
                 jobs : [],
                 job: {},
-                id: JSON.parse(localStorage.getItem('student')).id
+                id: JSON.parse(localStorage.getItem('student')).id,
+                isNoPost: false
             }
         },
         mounted(){
@@ -84,6 +90,7 @@
                             "authorization" : `bearer ${token}`,
                         }
                     })
+                    this.isNoPost = res.data.rows.length===0
                     this.jobs = res.data.rows
                 } catch (error) {
                     console.log(error);
@@ -92,6 +99,7 @@
             viewJob(index){
                 this.job = this.jobs[index];
                 this.job.isViewJob = false;
+                this.job.admin = false;
                 this.isShow_Jobs = true;
             },
             removejobs(){

@@ -1,6 +1,7 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 w-screen overflow-x-hidden flex flex-row">
         <Adminheader/>
+        <Loader v-bind:isLoader='isLoader'/>
         <div class="flex flex-col w-full">
             <Navbar/>
             <div class="w-full mt-14 md:mt-[5%] md:ml-[20.5%] text-white animate__animated animate__fadeIn pl-4">
@@ -65,7 +66,7 @@
                         </table>
                         <p class="capitalize text-red-700 pl-5 font-bold">{{message}}</p>
                     </div>
-                    <Modal class="hidden animate__animated animate__bounceInDown" id="modal_content" v-bind:alumni_data='alumni_data'/>
+                    <Modal @loader='nowLoading' @getData="getData('')" class="hidden animate__animated animate__bounceInDown" id="modal_content" v-bind:alumni_data='alumni_data'/>
                 </div>
             </div>            
         </div>    
@@ -76,6 +77,7 @@
 import Adminheader from './../layout/admin_header.vue'
 import Navbar from './../layout/admin_navbar.vue'
 import Modal from './admin_modal_profile.vue'
+import Loader from '../layout/loader.vue'
 import axios from 'axios';
 import moment from 'moment'
 
@@ -83,13 +85,15 @@ export default {
     components: {
         Adminheader,
         Navbar,
-        Modal
+        Modal,
+        Loader
     },
     data(){
         return{
             datas: [],
             alumni_data: {},
             search : '',
+            isLoader : 'loader-hide',
             message: ''
         }
     },
@@ -97,6 +101,13 @@ export default {
         this.getdata('all');
     },
     methods: {
+        nowLoading(){
+            if(this.isLoader==='loader-hide'){
+                this.isLoader = 'loader-display';
+            }else{
+                this.isLoader = 'loader-hide'
+            }
+        },
         moment(date) {
             return moment(date).format('MMM D, YYYY');
         },

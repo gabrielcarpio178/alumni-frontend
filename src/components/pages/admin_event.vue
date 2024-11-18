@@ -1,6 +1,7 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 w-screen overflow-x-hidden flex flex-row">
         <Adminheader/>
+        <Loader v-bind:isLoader='isLoader'/>
         <div class="flex flex-col w-full">
             <Navbar/>
             <div class="w-full mt-14 md:mt-[5%] md:ml-[20.5%] text-white animate__animated animate__fadeIn pl-4 px-4">
@@ -47,7 +48,7 @@
                 </div>
             </div>    
         </div>
-        <ModalAdd class="animate__animated animate__bounceInDown hidden" id="modal_add"/>
+        <ModalAdd @loader="nowLoading" class="animate__animated animate__bounceInDown hidden" id="modal_add"/>
     </div>           
 </template>
 <script>
@@ -55,6 +56,7 @@ import axios from 'axios'
 import Adminheader from './../layout/admin_header.vue'
 import Navbar from './../layout/admin_navbar.vue'
 import ModalAdd from './admin_modalAdd_event.vue'
+import Loader from '../layout/loader.vue'
 import moment from 'moment'
 import Swal from 'sweetalert2'
 
@@ -62,18 +64,27 @@ export default {
    components: {
         Adminheader,
         Navbar,
-        ModalAdd
+        ModalAdd,
+        Loader
     },
     data(){
         return{
             events : [],
-            message: ""
+            message: "",
+            isLoader : 'loader-hide',
         }
     },
     mounted(){
         this.getGallery('all');
     },
     methods: {
+        nowLoading(){
+            if(this.isLoader==='loader-hide'){
+                this.isLoader = 'loader-display';
+            }else{
+                this.isLoader = 'loader-hide'
+            }
+        },
          moment: function (date) {
             return moment(date).format('MMM D, YYYY h:mm A');
         },
@@ -114,28 +125,37 @@ export default {
                 confirmButtonText: "Yes, delete it!"
             }).then(async (result) => {
             if (result.isConfirmed) { 
-                await axios.delete(`${this.PORT}/auth/admin/deleteEvent`,
-                    {
-                        headers:{
-                            'Content-type':'application/x-www-form-urlencoded',
-                            "authorization" : `bearer ${token}`,
-                        },
-                        data: {
-                            id: id
+                this.nowLoading();
+                try{
+                    const res = await axios.delete(`${this.PORT}/auth/admin/deleteEvent`,
+                        {
+                            headers:{
+                                'Content-type':'application/x-www-form-urlencoded',
+                                "authorization" : `bearer ${token}`,
+                            },
+                            data: {
+                                id: id
+                            }
                         }
+                    )
+                    if(res.data.message=='delete success'){
+                        Swal.fire({
+                            position: "center",
+                            title: `Delete`,
+                            text: `Delete success`,
+                            showConfirmButton: false,
+                            timer: 1000,
+                            icon: "success"
+                        }).then(()=>{
+                            this.getGallery('all');
+                            this.filter_schedule = ""
+                        });
                     }
-                )
-                Swal.fire({
-                    position: "center",
-                    title: `Delete`,
-                    text: `Delete success`,
-                    showConfirmButton: false,
-                    timer: 1000,
-                    icon: "success"
-                }).then(()=>{
-                    this.getGallery('all');
-                    this.filter_schedule = ""
-                });
+                }catch(err){
+                    console.log(err)
+                }finally{
+                    this.nowLoading();
+                }
             }
             });
         }
