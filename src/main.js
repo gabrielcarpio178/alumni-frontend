@@ -161,7 +161,7 @@ router.beforeEach(async (to, from, next) => {
 const globalVariable = {
     data(){
         return {
-            PORT: 'http://localhost:8080',
+            PORT: 'https://alumnibackend-6i5fla0z.b4a.run/',
             isLogin: localStorage.getItem('token')!==null
         }
     }
