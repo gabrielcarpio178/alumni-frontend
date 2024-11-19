@@ -7,7 +7,7 @@
             <div class="w-full mt-[13%] ml-[8%] md:mt-[5%] md:ml-[20.5%] text-white animate__animated animate__fadeIn md:pl-4 md:px-4">
                 <h1 class="text-3xl pb-4 tracking-tight text-gray-900 dark:text-white  font-bold">Gallery</h1>
                 <div class="md:w-[78%] w-[87%] flex items-end justify-end">
-                    <button class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onclick="document.getElementById('modal_add').classList.remove('hidden')">New post</button>
+                    <button class="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" @click="addForm">New post</button>
                 </div>
                 <div class="grid md:grid-cols-3 gap-4 w-[82%] md:w-[78%] h-96 mt-5 rounded-md">    
                     <div v-for="(data, index) in this.gallery" :key="index">
@@ -33,7 +33,7 @@
                 </div>
             </div>     
         </diV>
-        <ModalAdd @loading="nowLoading" class="animate__animated animate__bounceInDown hidden" id="modal_add"/>
+        <ModalAdd @loading="nowLoading" class="animate__animated animate__bounceInDown" id="modal_add" v-if="this.showAddForm" @closeForm="addForm"/>
         <ModalEdit class="animate__animated animate__bounceInDown hidden" id="modal_edit" v-bind:gallery_data='gallery_data'/>
     </div>
 </template>            
@@ -62,13 +62,17 @@ export default {
         return{
             gallery : [],
             gallery_data: {},
-            isLoader : 'loader-hide'
+            isLoader : 'loader-hide',
+            showAddForm: false
         }
     },
     mounted(){
         this.getGallery();
     },
     methods: {
+        addForm(){
+            this.showAddForm = !this.showAddForm;
+        },
         nowLoading(){
             if(this.isLoader==='loader-hide'){
                 this.isLoader = 'loader-display';

@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 flex flex-col gap-10 w-full overflow-x-hidden">
         <Topbar/>
-        <Participants v-if="this.isParticipant" v-bind:participants="participants" v-bind:event_id="event_id" class="animate__animated animate__bounceInDown" @remove="remove" @loading="nowLoading"/>
+        <Participants v-if="this.isParticipant" v-bind:participants="participants" v-bind:event_id="event_id" v-bind:isAlreadyParticipate="isAlreadyParticipate" class="animate__animated animate__bounceInDown" @remove="remove" @loading="nowLoading"/>
         <Loader v-bind:isLoader='isLoader'/>
         <div class="h-screen xl:h-full text-white w-screen animate__animated animate__fadeIn">
             <div class="text-center w-screen pt-20 flex flex-col gap-2">
@@ -110,6 +110,7 @@
                 }else{
                     this.isParticipant = true
                     const token = localStorage.getItem('token');
+                    var user_id = JSON.parse(localStorage.getItem('student')).id;
                     try {
                         var res = await axios.get(`${this.PORT}/auth/participants/${id}`, {
                             headers:{
@@ -119,6 +120,11 @@
                         })
                         this.participants = res.data.rows
                         this.event_id = id;
+                        let arrayOfIds = []; 
+                        res.data.rows.map(row=>{
+                            arrayOfIds.push(row.id)
+                        })
+                        this.isAlreadyParticipate = arrayOfIds.includes(parseInt(user_id))
                     } catch (error) {
                         console.log(error);
                     }

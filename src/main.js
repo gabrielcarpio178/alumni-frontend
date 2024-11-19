@@ -157,11 +157,11 @@ router.beforeEach(async (to, from, next) => {
         next();
     }
 });
-
+// https://alumnibackend-6i5fla0z.b4a.run/
 const globalVariable = {
     data(){
         return {
-            PORT: 'https://alumnibackend-6i5fla0z.b4a.run/',
+            PORT: 'http://localhost:8080',
             isLogin: localStorage.getItem('token')!==null
         }
     }

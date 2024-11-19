@@ -7,10 +7,10 @@
                 <h1 class="text-2xl font-bold">
                     Job Opportunity
                 </h1>
+                <router-link to="/jobs/view-job" type="submit" class="w-[22%] md:w-[10%] text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 md:absolute right-5 self-end mr-2 md:mr-0">Your Post</router-link>
                 <div v-if="this.isNoPost" class="text-red-600 w-full h-[40vh]">
                     No Job Post Available
                 </div>
-                <router-link to="/jobs/view-job" type="submit" class="w-[22%] md:w-[10%] text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 md:absolute right-5 self-end mr-2 md:mr-0">Your Post</router-link>
                 <div class="grid md:grid-cols-3 gap-2 p-10 mr-5">
                     <div v-for="(job, index) in this.jobs" :key="index">
                         <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 py-5 shadow-lg flex flex-col items-start">

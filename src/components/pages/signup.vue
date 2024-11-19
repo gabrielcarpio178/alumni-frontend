@@ -1,6 +1,7 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 flex flex-col gap-10 w-full overflow-x-hidden">
         <Topbar/>
+        <Loader v-bind:isLoader='isLoader'/>
         <section class="bg-gray-50 dark:bg-gray-900 md:mt-20 mt-24 flex w-screen items-center justify-center">
             <div class="w-full bg-white rounded-lg shadow dark:border mx-20 dark:bg-gray-800 dark:border-gray-700">
                 <div class="md:p-6 p-2 space-y-2 md:space-y-6 animate__animated animate__fadeIn">
@@ -89,24 +90,27 @@
     import Topbar from '../layout/header.vue'
     import Bottombar from '../layout/footer.vue'
     import moment from 'moment';
-
-    // const PORT = "http://localhost:8080";
+    import Loader from '../layout/loader.vue';
+    import Swal from 'sweetalert2';
   
     export default {
         name: 'signup',
         components: {
             Topbar,
-            Bottombar
+            Bottombar,
+            Loader
         },
         data(){
             return {
                 years : [],
                 datas: [],
+                isLoader : 'loader-hide'
             }
         },
         mounted(){
             this.getcourse();
             this.getyear();
+           
         },
         methods:{
             getyear(){
@@ -125,9 +129,17 @@
                     console.log(error);
                 }
             },
+            nowLoading(){
+                if(this.isLoader==='loader-hide'){
+                    this.isLoader = 'loader-display';
+                }else{
+                    this.isLoader = 'loader-hide'
+                }
+            },
             async registerRequest(e){
-                e.preventDefault();    
+                e.preventDefault();
                 if(this.password===this.confirm_password){
+                    this.nowLoading(); 
                     const sendData = {
                         firstname: this.firstname,
                         middlename: this.middlename,
@@ -145,7 +157,16 @@
                         const res = await axios.post(`${this.PORT}/auth/register`,sendData);
                         if(res.status===201){
                             if(res.data.message==="user created successfully"){
-                                window.location = "/login"
+                                this.nowLoading();
+                                  Swal.fire({
+                                    position: "center",
+                                    title: `Success`,
+                                    text: `Wait for admin to activate your account.`,
+                                    icon: "success"
+                                }).then(()=>{
+                                    window.location = "/login"
+                                });
+                                
                             }else{
                                 document.getElementById("message").textContent = res.data.message;
                             }
