@@ -1,8 +1,8 @@
 <template>
     <div class="bg-gray-50 dark:bg-gray-900 flex flex-col gap-10 w-full overflow-x-hidden">
         <Topbar/>
-        <div class="h-screen xl:h-full text-white w-screen animate__animated animate__fadeIn">
-            <div class="w-screen md:p-20 md:mt-0 mt-10 p-10 flex flex-col gap-2">
+        <div class="h-screen xl:h-full dark:text-white w-screen animate__animated animate__fadeIn">
+            <div class="w-screen md:p-20 md:mt-0 mt-10 px-10 pt-28 flex flex-col gap-2">
                 <h1 class="mt-5 text-center text-2xl font-bold">
                     System Gallery
                 </h1>

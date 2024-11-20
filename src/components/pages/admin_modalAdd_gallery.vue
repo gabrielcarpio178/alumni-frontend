@@ -49,7 +49,7 @@ export default  {
     },
     methods:{
         closeModal(){
-            this.$emit('closeForm');
+            document.getElementById('modal_add').classList.add('hidden')
         },
         loading(){
             this.$emit('loading')
@@ -108,7 +108,6 @@ export default  {
             } catch (error) {
                 console.log(error)
             }finally{
-                this.closeModal()
                 this.loading();
             }
             

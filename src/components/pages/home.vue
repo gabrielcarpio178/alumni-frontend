@@ -3,8 +3,8 @@
         <Topbar/>
         <Participants v-if="this.isParticipant" v-bind:participants="participants" v-bind:event_id="event_id" v-bind:isAlreadyParticipate="isAlreadyParticipate" class="animate__animated animate__bounceInDown" @remove="remove" @loading="nowLoading"/>
         <Loader v-bind:isLoader='isLoader'/>
-        <div class="h-screen xl:h-full text-white w-screen animate__animated animate__fadeIn">
-            <div class="text-center w-screen pt-20 flex flex-col gap-2">
+        <div class="h-screen xl:h-full dark:text-white w-screen animate__animated animate__fadeIn">
+            <div class="text-center w-screen pt-32 flex flex-col gap-2">
                 <h1 class="text-3xl font-bold">
                     Welcome Alumni
                 </h1>
@@ -23,7 +23,7 @@
                     <div class="md:w-1/2 h-80">
                         <img :src="this.PORT+'/uploads/'+data.banner" alt="banner" class="max-w-full max-h-full w-full h-full">
                     </div>
-                    <div class="text-white md:w-1/2 text-center px-3 xl:flex xl:flex-col xl:text-2xl xl:items-center xl:justify-center relative">
+                    <div class="dark:text-white md:w-1/2 text-center px-3 xl:flex xl:flex-col xl:text-2xl xl:items-center xl:justify-center relative">
                         <div class="font-bold text-xl xl:text-3xl uppercase">
                             {{data.event}}
                         </div>

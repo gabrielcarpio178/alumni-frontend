@@ -7,16 +7,16 @@
                 </svg>
                 <span class="sr-only">Close modal</span>
             </div>
-            <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 shadow-lg flex flex-col items-start text-white">
+            <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 shadow-lg flex flex-col items-start dark:text-white">
                 <div class="w-full mb-2 flex flex-col justify-center items-center mt-5">
                     <div class="relative mx-auto w-36 h-36 rounded-full">
-                        <img class="rounded-full w-36 h-36 object-center" :src="job.profile_pic===null?getThumbnel(job.firstname, job.lastname):`${this.PORT}/uploads/${job.profile_pic}`" :alt="job.firstname+' '+job.lastname" />
+                        <img class="rounded-full w-36 h-36 object-center shadow-md" :src="job.profile_pic===null?getThumbnel(job.firstname, job.lastname):`${this.PORT}/uploads/${job.profile_pic}`" :alt="job.firstname+' '+job.lastname" />
                     </div>
                     <div class="text-center capitalize text-2xl font-bold">
                         {{job.firstname}} {{job.lastname}}
                     </div>
                 </div>
-                <div class="w-full flex flex-col gap-y-1">
+                <div class="rounded shadow-md p-2 w-full flex flex-col gap-y-1 mb-3">
                     <div>
                         Company Name: <span class="capitalize">{{job.company_name}}</span>
                     </div>

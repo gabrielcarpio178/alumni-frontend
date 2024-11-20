@@ -2,8 +2,8 @@
     <div class="bg-gray-50 dark:bg-gray-900 flex flex-col gap-10 w-full overflow-x-hidden">
         <Topbar/>
         <Loader v-bind:isLoader='isLoader'/>
-        <div class="h-screen xl:h-full text-white w-screen animate__animated animate__fadeIn flex flex-col">
-            <div class="text-center w-screen pt-20 flex flex-col gap-2">
+        <div class="h-screen xl:h-full dark:text-white w-screen animate__animated animate__fadeIn flex flex-col">
+            <div class="text-center w-screen pt-28 flex flex-col gap-2">
                 <h1 class="text-2xl font-bold">
                     Job Post
                 </h1>

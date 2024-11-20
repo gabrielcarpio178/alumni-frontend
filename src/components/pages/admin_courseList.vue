@@ -45,14 +45,14 @@
                         </div>
                     </div>
 
-                    <div class="flex flex-col w-[90%] md:w-[40%] gap-y-2 md:mt-0 mt-2">
+                    <div class="shadow flex flex-col w-[90%] md:w-[40%] gap-y-2 md:mt-0 mt-2">
                         <div class="bg-white dark:bg-gray-800 dark:border-gray-700 p-4 rounded-lg">
                             <div>
                                 <label for="search" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white capitalize">search</label>
                                 <input type="text" @input="searchcourse(this.search)" v-model="search" name="search" id="search" placeholder="Search" class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
                             </div>
                         </div>
-                        <p>{{not_found}}</p>
+                        <p class="text-red-600 px-2">{{not_found}}</p>
                         <div class="overflow-x-auto w-full h-80 rounded-lg bg-white dark:bg-gray-800 dark:border-gray-700" id="table_content">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead class="w-1/4text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">

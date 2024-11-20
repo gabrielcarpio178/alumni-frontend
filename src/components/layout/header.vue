@@ -1,6 +1,6 @@
 <template>
     <header class="fixed w-full z-50">
-        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800 shadow">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <router-link to="/" class="flex items-center">
                     <img src="../image/itechlogo.png" class="mr-3 h-6 sm:h-9" alt="Itech logo" />
@@ -17,17 +17,17 @@
                     <router-link to="/login" v-if="!this.isLogin" class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800" >Log in</router-link>
                 </div>
                 <div :class="this.novi_show?'block':'hidden'" class="block justify-between items-center w-full lg:flex lg:w-auto lg:order-1">
-                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                        <li class="p-1 rounded-md" :class="isActivate('home')?'bg-gray-700':'hover:bg-gray-100 dark:hover:bg-gray-700'">
+                    <ul class="gap-y-2 flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                        <li class="p-1 rounded-md" :class="isActivate('home')?'dark:bg-gray-700 bg-gray-100':'hover:bg-gray-100 dark:hover:bg-gray-700'">
                             <router-link to="/" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Home</router-link>
                         </li>
-                        <li class="p-1 rounded-md" :class="isActivate('gallery')?'bg-gray-700':'hover:bg-gray-100 dark:hover:bg-gray-700'"> 
+                        <li class="p-1 rounded-md" :class="isActivate('home')?'dark:bg-gray-700 bg-gray-100':'hover:bg-gray-100 dark:hover:bg-gray-700'"> 
                             <router-link to="/gallery" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Gallery</router-link>
                         </li>
-                        <li class="p-1 rounded-md" :class="isActivate('about')?'bg-gray-700':'hover:bg-gray-100 dark:hover:bg-gray-700'">
+                        <li class="p-1 rounded-md" :class="isActivate('home')?'dark:bg-gray-700 bg-gray-100':'hover:bg-gray-100 dark:hover:bg-gray-700'">
                             <router-link to="/about" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About</router-link>
                         </li>
-                        <li class="p-1 rounded-md" :class="isActivate('jobs')?'bg-gray-700':'hover:bg-gray-100 dark:hover:bg-gray-700'">
+                        <li v-if="this.isLogin" class="p-1 rounded-md" :class="isActivate('home')?'dark:bg-gray-700 bg-gray-100':'hover:bg-gray-100 dark:hover:bg-gray-700'">
                             <router-link to="/jobs" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Job</router-link>
                         </li>
                     </ul>
