@@ -13,7 +13,7 @@
                 <div class="text-red-500 py-0 px-0 capitalize w-[78%]" id="message">
                     {{message}}
                 </div>
-                <div class="grid md:grid-cols-3 gap-4 md:w-[78%] h-96 md:overflow-y-scroll mt-5 rounded-md">
+                <div class="grid md:grid-cols-3 gap-4 md:w-[78%] md:h-96 md:overflow-y-scroll mt-5 rounded-md">
                     
                     <div v-for="(event, index) in this.events" :key="index">
                         <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 py-5 shadow-lg">

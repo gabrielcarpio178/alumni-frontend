@@ -4,12 +4,12 @@
         <Loader v-bind:isLoader='isLoader'/>
         <div class="flex flex-col w-full">
             <Navbar/>
-            <div class="overflow-hidden mt-14 md:w-[78%] md:mt-[5%] md:ml-[20.5%] dark:text-white animate__animated animate__fadeIn pl-4 px-4">
+            <div class="overflow-x-hidden mt-14 md:w-[78%] md:mt-[5%] md:ml-[20.5%] dark:text-white animate__animated animate__fadeIn px-2 md:pl-4 md:px-4">
                 <h1 class="text-3xl pb-4 tracking-tight text-gray-900 dark:text-white  font-bold">Jobs</h1>
                 <div class="text-2xl text-red-600" v-if="this.message">No Jobs Posted</div>
-                <div class="h-screen xl:h-full p-3.5 dark:text-white w-full animate__animated animate__fadeIn flex flex-col">
+                <div class="md:p-3.5 dark:text-white w-full">
                     <div class="text-center w-full flex flex-col gap-2">
-                        <div class="grid md:grid-cols-2 gap-2 p-10 mr-5">
+                        <div class="grid md:grid-cols-2 gap-2 md:mr-5">
                             <div v-for="(job, index) in this.jobs" :key="index">
                                 <div class="rounded-lg border bg-white dark:bg-gray-800 dark:border-gray-700 px-4 py-5 shadow-lg flex flex-col items-start">
                                     <div class="w-full mb-2 flex flex-col justify-center items-center">
