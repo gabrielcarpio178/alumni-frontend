@@ -2,12 +2,12 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router/router.js'
+import router from './route/route.js'
 
 const globalVariable = {
     data(){
         return {
-            PORT: 'https://alumnibackend-6i5fla0z.b4a.run',
+            PORT: 'http://localhost:8080',
             isLogin: localStorage.getItem('token')!==null
         }
     }
