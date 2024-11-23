@@ -162,7 +162,8 @@
                                     position: "center",
                                     title: `Success`,
                                     text: `Wait for admin to activate your account.`,
-                                    icon: "success"
+                                    icon: "success",
+                                    showConfirmButton: false
                                 }).then(()=>{
                                     window.location = "/login"
                                 });
