@@ -157,13 +157,11 @@
                         const res = await axios.post(`${this.PORT}/auth/register`,sendData);
                         if(res.status===201){
                             if(res.data.message==="user created successfully"){
-                                this.nowLoading();
                                   Swal.fire({
                                     position: "center",
                                     title: `Success`,
                                     text: `Wait for admin to activate your account.`,
                                     icon: "success",
-                                    showConfirmButton: false
                                 }).then(()=>{
                                     window.location = "/login"
                                 });
