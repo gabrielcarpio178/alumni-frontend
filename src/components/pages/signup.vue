@@ -172,7 +172,9 @@
                             }
                         }
                     } catch (error){
-                        document.getElementById("message").textContent = "Something wrong";
+                        console.log(error)
+                    }finally{
+                        this.nowLoading()
                     }
                 }
                 else{
