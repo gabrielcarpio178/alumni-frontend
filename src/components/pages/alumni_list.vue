@@ -38,7 +38,7 @@
                                 Accomplishment
                             </div>
                             <div class="w-full h-full flex flex-col mt-2">
-                                <div v-if="alumni.accomplishments[0]===null" class="capitalize text-nowrap  text-xs p-1">No Accomplishments Added</div>
+                                <div v-if="alumni.accomplishments[0]===null" class="capitalize text-xs p-1">No Accomplishments Added</div>
                                 <div v-for="(data, index) in alumni.accomplishments" :key="index">
                                     <div v-if="data!==null" class="capitalize rounded shadow-lg dark:bg-gray-800 dark:border-gray-700  text-xs p-1">{{data}}</div>
                                 </div>
